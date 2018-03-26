@@ -5,8 +5,8 @@ public class main {
     public static void main(String[] args) {
 
         printBeginMessage();
-       // Pitch pitch =new Pitch();
-        Field field = new Field();
+        Pitch pitch =new Pitch();
+        
     }
     private static void  printBeginMessage()
     {
