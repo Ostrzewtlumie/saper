@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Pitch {
 
-    private ArrayList<Integer[]> pitch;
+    private ArrayList<ArrayList<Field>> pitch;
 
     public Pitch() {
 
@@ -52,7 +52,7 @@ public class Pitch {
         }
     }
 
-    private void getFieldFromPitch(ArrayList<Integer[]> arrayPitch)
+    private void getFieldFromPitch(ArrayList<ArrayList<Field>> arrayPitch)
     {
         String rowMessage="Wprowadz pierwsza wartość: ";
         System.out.print(rowMessage);
@@ -64,14 +64,16 @@ public class Pitch {
         Scanner inCol=new Scanner(System.in);
         int pitchCol=inCol.nextInt();
 
-        Integer[] field=arrayPitch.get(pitchRow);
-        if(field[pitchCol]==1)
-            field[pitchCol]=11;//podstawiam 10 zeby dzialalo dla jednego pola gdy zyjesz
-        else if (field[pitchCol]==0)
-            field[pitchCol]=10;//podstawiam 10 zeby dzialalo dla jednego pola gdy umierasz
+        ArrayList<Field> field=arrayPitch.get(pitchRow);
+        Field afield = field.get(pitchCol);
+        if(afield.getStand()==1)
+            afield.setStand(11);//podstawiam 10 zeby dzialalo dla jednego pola gdy zyjesz
+        else if (afield.getStand()==0)
+            afield.setStand(10);//podstawiam 10 zeby dzialalo dla jednego pola gdy umierasz
         else
             ;
-        getLifeStatus(field[pitchCol]);
+        updateFieldCount(arrayPitch,pitchRow,pitchCol,afield);
+        getLifeStatus(afield.getStand());
 
 
 
@@ -85,31 +87,50 @@ public class Pitch {
 
     }
 
-    private void showPitch(ArrayList<Integer[]> arrayPitch )
+    private void showPitch(ArrayList<ArrayList<Field>> arrayPitch )
     {
-        for(Integer[] i:arrayPitch)
+        for(ArrayList<Field> i:arrayPitch)
         {
-            for(Integer j:i) {
-            if(j==11)
-                System.out.print(1 + " ");
-            else if(j==10)
+            for(Field j:i) {
+            if(j.getStand()==11)
+                System.out.print(j.getCount() + " ");
+            else if(j.getStand()==10)
                 System.out.print(0 + " ");
             else
-                System.out.print("X" + " ");
+                System.out.print("X ");
             }
             System.out.println("");
         }
     }
 
-    public ArrayList<Integer[]> getPitch()
+    private ArrayList<ArrayList<Field>> getPitch()
     {
-        ArrayList<Integer[]> aPitch=new ArrayList<Integer[]>(5);
+        ArrayList<ArrayList<Field>> aPitch=new ArrayList<ArrayList<Field>>();
         for (int i=0;i<5;i++)
         {
-           aPitch.add(new Integer[]{0,0,1,1,0});
-
+            ArrayList<Field> bPitch = new ArrayList<Field>();
+            for (int j=0;j<5;j++)
+            {
+                 bPitch.add(new Field());
+            }
+            aPitch.add(bPitch);
         }
         return aPitch;
+    }
+    private void updateFieldCount(ArrayList<ArrayList<Field>> aPitch, int aRow, int aCol, Field aaField)
+    {
+        for(int i = -1;i<2;i++)
+        {
+            ArrayList<Field> field=aPitch.get(aRow+i);
+            for(int j = -1;j<2;j++)
+            {
+                Field afield = field.get(aCol+j);
+                if(afield.getStand()==0)
+                {
+                    aaField.setCount();
+                }
+            }
+        }
     }
 
     private void getStartMessage()

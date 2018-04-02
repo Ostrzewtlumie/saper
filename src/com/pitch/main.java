@@ -6,7 +6,7 @@ public class main {
 
         printBeginMessage();
         Pitch pitch =new Pitch();
-        
+
     }
     private static void  printBeginMessage()
     {
