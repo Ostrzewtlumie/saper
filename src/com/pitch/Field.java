@@ -2,7 +2,7 @@ package com.pitch;
 import java.util.Random;
 
 
-public class Field {
+public class Field implements FieldInterface {
     private int fieldStand;
     private int fieldCount;
 
