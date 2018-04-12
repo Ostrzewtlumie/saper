@@ -26,7 +26,7 @@ public class Field implements FieldInterface {
     }
     public void setCount()
     {
-        fieldCount+=1;
+        fieldCount += 1;
 
     }
 }
