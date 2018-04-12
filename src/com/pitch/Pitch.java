@@ -9,15 +9,12 @@ public class Pitch {
     private ArrayList<ArrayList<Field>> pitch;
 
     public Pitch() {
-
-            getStartMessage();
-
-            pitch = getPitch();
-            showPitch(pitch);
-
-            getStatusMessage();
-
-           checkFieldStatus();
+    	super();
+    }
+    void initializePitch()
+    {
+    	 pitch = getPitch();
+         showPitch(pitch);
     }
     private void getLifeStatus(int aField)
     {
@@ -43,7 +40,7 @@ public class Pitch {
 
 
     }
-    private void checkFieldStatus(){
+    void checkFieldStatus(){
 
         while (true) {
             getFieldFromPitch(pitch);
@@ -79,7 +76,7 @@ public class Pitch {
 
     }
 
-    private void getStatusMessage()
+    void getStatusMessage()
     {
         String statusMessage="Jeśli pole, które wybierzesz bedzie rowne 0, to umierasz. Jeśli 1, zyjesz dalej.\nWybierz pole np.[4][4]. Uwaga! maksymalna zakres to [4][4], a minimalny [0][0]";
         System.out.println(statusMessage);
@@ -117,6 +114,7 @@ public class Pitch {
         }
         return aPitch;
     }
+    
     private void updateFieldCount(ArrayList<ArrayList<Field>> aPitch, int aRow, int aCol, Field aaField)
     {
         for(int i = -1;i<2;i++)
@@ -133,7 +131,7 @@ public class Pitch {
         }
     }
 
-    private void getStartMessage()
+    void getStartMessage()
     {
         String startMessage="Generuje plansze!";
         System.out.println(startMessage);

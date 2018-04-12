@@ -6,6 +6,10 @@ public class main {
 
         printBeginMessage();
         Pitch pitch =new Pitch();
+        pitch.initializePitch();
+        pitch.getStartMessage();
+        pitch.getStatusMessage();
+        pitch.checkFieldStatus();
 
     }
     private static void  printBeginMessage()
