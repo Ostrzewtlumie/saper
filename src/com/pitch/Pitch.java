@@ -1,30 +1,30 @@
 package com.pitch;
 
 import java.util.ArrayList;
-
+import java.util.List;
 import java.util.Scanner;
 
 public class Pitch {
 
-    private ArrayList<ArrayList<Field>> pitch;
+    private List<ArrayList<Field>> pitch;
 
     public Pitch() {
     	super();
     }
-    void initializePitch()
+    void initializePitch(int rows, int cols)
     {
-    	 pitch = getPitch();
+    	 pitch = createPitch(rows, cols);
          showPitch(pitch);
     }
-    private void getLifeStatus(int aField)
+    private void getLifeStatus(int field)
     {
         String liveStatusMessage;
 
-        if (aField == 10) {
+        if (field == 10) {
 
             liveStatusMessage = "Nieżyjesz!";
         }
-        else if (aField == 11)
+        else if (field == 11)
             liveStatusMessage = "Żyjesz!";
 
         else
@@ -49,30 +49,29 @@ public class Pitch {
         }
     }
 
-    private void getFieldFromPitch(ArrayList<ArrayList<Field>> arrayPitch)
+    private void getFieldFromPitch(List<ArrayList<Field>> pitch)
     {
         String rowMessage = "Wprowadz pierwsza wartość: ";
         System.out.print(rowMessage);
-        Scanner inRow = new Scanner(System.in);
-        int pitchRow = inRow.nextInt();
+        
+        @SuppressWarnings("resource")
+		Scanner inputRow = new Scanner(System.in);
+        int pitchRow = inputRow.nextInt();
 
         String colMessage = "Wprowadz druga wartość: ";
         System.out.print(colMessage);
-        Scanner inCol = new Scanner(System.in);
-        int pitchCol = inCol.nextInt();
+        
+        @SuppressWarnings("resource")
+		Scanner inputCol = new Scanner(System.in);
+        int pitchCol = inputCol.nextInt();
 
-        ArrayList<Field> field = arrayPitch.get(pitchRow);
-        Field afield = field.get(pitchCol);
-        if(afield.getStand() == 1)
-            afield.setStand(11);//podstawiam 10 zeby dzialalo dla jednego pola gdy zyjesz
-        else if (afield.getStand() == 0)
-            afield.setStand( 10 );//podstawiam 10 zeby dzialalo dla jednego pola gdy umierasz
-        else
-            ;
-        updateFieldCount(arrayPitch,pitchRow,pitchCol,afield);
-        getLifeStatus(afield.getStand());
-
-
+        List<Field>rowArray = pitch.get(pitchRow);
+        FieldInterface field = rowArray.get(pitchCol);
+        if(field.getFieldStand() == 1)	field.setFieldStand(11);//podstawiam 11 zeby dzialalo dla jednego pola gdy zyjesz
+        else if (field.getFieldStand() == 0)	field.setFieldStand(10);//podstawiam 10 zeby dzialalo dla jednego pola gdy umierasz
+        
+        updateFieldCount(pitch,pitchRow,pitchCol,field);
+        getLifeStatus(field.getFieldStand());
 
     }
 
@@ -84,14 +83,14 @@ public class Pitch {
 
     }
 
-    private void showPitch(ArrayList<ArrayList<Field>> arrayPitch )
+    private void showPitch(List<ArrayList<Field>> pitch)
     {
-        for(ArrayList<Field> i : arrayPitch)
+        for(ArrayList<Field> row : pitch)
         {
-            for(Field j : i) {
-            if(j.getStand() == 11)
-                System.out.print(j.getCount() + " ");
-            else if(j.getStand() == 10)
+            for(Field field : row) {
+            if(field.getFieldStand() == 11)
+                System.out.print(field.getFieldCount() + " ");
+            else if(field.getFieldStand() == 10)
                 System.out.print(0 + " ");
             else
                 System.out.print("X ");
@@ -100,32 +99,32 @@ public class Pitch {
         }
     }
 
-    private ArrayList<ArrayList<Field>> getPitch()
+    private List<ArrayList<Field>> createPitch(int rows, int cols)
     {
-        ArrayList<ArrayList<Field>> aPitch = new ArrayList<ArrayList<Field>>();
-        for (int i=0 ; i<5 ; i++)
+        List<ArrayList<Field>> pitch = new ArrayList<ArrayList<Field>>();
+        for (int i = 0 ; i < rows ; i++)
         {
-            ArrayList<Field> bPitch = new ArrayList<Field>();
-            for (int j=0 ; j<5 ; j++)
+            ArrayList<Field> row = new ArrayList<Field>();
+            for (int j = 0 ; j < cols ; j++)
             {
-                 bPitch.add(new Field());
+                 row.add(new Field());
             }
-            aPitch.add(bPitch);
+            pitch.add(row);
         }
-        return aPitch;
+        return pitch;
     }
     
-    private void updateFieldCount(ArrayList<ArrayList<Field>> aPitch, int aRow, int aCol, Field aaField)
+    private void updateFieldCount(List<ArrayList<Field>> pitch, int row, int col, FieldInterface field)
     {
         for(int i = -1 ; i<2 ; i++ )
         {
-            ArrayList<Field> field = aPitch.get(aRow+i);
+            ArrayList<Field> newRow = pitch.get(row+i);
             for(int j = -1 ; j<2 ; j++)
             {
-                Field afield = field.get(aCol+j);
-                if(afield.getStand() == 0)
+                Field newField = newRow.get(col+j);
+                if(newField.getFieldStand() == 0)
                 {
-                    aaField.setCount();
+                    field.setFieldCount();
                 }
             }
         }

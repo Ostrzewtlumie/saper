@@ -2,8 +2,8 @@ package com.pitch;
 
 public interface FieldInterface {
 
-    int getStand();
-    void setStand(int aStand);
-    int getCount();
-    void setCount();
+	 public int getFieldStand();
+	 public int getFieldCount();
+	 public void setFieldCount();
+	 public void setFieldStand(int fieldStand);
 }
