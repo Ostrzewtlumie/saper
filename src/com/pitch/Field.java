@@ -3,19 +3,18 @@ import java.util.Random;
 
 
 public class Field implements FieldInterface {
-   
+
 
 	private int fieldStand;
-    private int fieldCount;
+	private int fieldCount;
 
-    public Field()
-    {
-        fieldCount = 0;
-        Random generator = new Random();
-        fieldStand = generator.nextInt(2);
-    }
-    
-    public int getFieldStand() {
+	public Field() {
+		fieldCount = 0;
+		Random generator = new Random();
+		fieldStand = generator.nextInt(2);
+	}
+
+	public int getFieldStand() {
 		return fieldStand;
 	}
 
@@ -28,7 +27,7 @@ public class Field implements FieldInterface {
 	}
 
 	public void setFieldCount() {
-		   this.fieldCount = 1;
+		this.fieldCount = 1;
 	}
 }
 
