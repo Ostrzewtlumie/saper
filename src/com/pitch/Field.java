@@ -28,7 +28,7 @@ public class Field implements FieldInterface {
 	}
 
 	public void setFieldCount() {
-		   this.fieldCount += 1;
+		   this.fieldCount = 1;
 	}
 }
 

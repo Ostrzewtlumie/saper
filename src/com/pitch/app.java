@@ -3,8 +3,8 @@ package com.pitch;
 import java.util.Scanner;
 
 public class app {
-    private static int pitchRows = 0;
-    private static int pitchCols = 0;
+    private static int pitchRows = -1;
+    private static int pitchCols = -1;
     public static void main(String[] args) {
 
         printBeginMessage();
@@ -13,22 +13,27 @@ public class app {
         pitch.initializePitch(pitchRows, pitchCols);
         pitch.getStartMessage();
         pitch.getStatusMessage();
-        pitch.checkFieldStatus();
+        pitch.checkFieldStatus(pitchRows,pitchCols);
 
     }
 	
     public static void getDimensions() {
-    	String message = "Podaj wymiary planszy";
-        System.out.println(message);
+    	
+    
+    	while(pitchRows<1||pitchCols<1)
+    	{
+    	
+    		String message = "Podaj wymiary planszy";
+    		System.out.println(message);
         
-        @SuppressWarnings("resource")
-		Scanner inputRow = new Scanner(System.in);
-        pitchRows = inputRow.nextInt();
+    		@SuppressWarnings("resource")
+    		Scanner inputRow = new Scanner(System.in);
+    		pitchRows = inputRow.nextInt();
 	
-    	@SuppressWarnings("resource")
-		Scanner inputCol = new Scanner(System.in);
-        pitchCols = inputCol.nextInt();
-	
+    		@SuppressWarnings("resource")
+			Scanner inputCol = new Scanner(System.in);
+    		pitchCols = inputCol.nextInt();
+    	}
     }
 	public static void  printBeginMessage()
     {
